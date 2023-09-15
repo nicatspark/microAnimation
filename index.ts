@@ -88,7 +88,7 @@ export function microAnimation({
   return new Promise((resolve) => {
     element.currentAnimation?.pause()
 
-    /* Typescript believes getComputedStyle returns an array, workaround */
+    /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
     const computedStyle = getComputedStyle(element) as unknown as Record<
       string,
       string
