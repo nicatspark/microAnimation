@@ -4,9 +4,11 @@ import { Properties, Property } from 'csstype'
 // INTERFACE
 // =================================================================================================
 
-type TransformEnd = Properties | {}
+type EmptyObject = Record<string, never>
 
-interface TargetElement extends HTMLElement {
+type TransformEnd = Properties | EmptyObject
+
+export interface TargetElement extends HTMLElement {
   currentAnimation?: Animation
 }
 
@@ -86,6 +88,7 @@ export function microAnimation({
   debuglog('targetProps', targetProperties)
 
   return new Promise((resolve) => {
+    if (!element) return
     element.currentAnimation?.pause()
 
     /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
