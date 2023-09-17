@@ -13,13 +13,13 @@ micro animation one liners.
 
 ## Install
 
-`npm install @foundit/microAnimation`
+`npm install @foundit/micro-animation`
 
 ## Usage
 
 ### import
 
-`import { microAnimation } from '@foundit/microAnimation'`
+`import { microAnimation } from '@foundit/micro-animation'`
 
 ### Executing an animation
 
@@ -88,3 +88,11 @@ async function openModal() {
 Use `void` instead of `await` if you don't need to wait for the promise to resolve. Handy if you
 need to execute it directly inside a useEffect in React where you can't have await. It is also
 thenable should you prefer that to await.
+
+### microAnimatio arguments
+
+- `element` - a DOM element or ref element if your using React
+- `duration` - duration of the total nimation in ms
+- `easing` - any of the easings available in CSS, i.e 'ease-in', 'linear', etc
+- `transformEnd` - a object or array of keyframe objects containg animatable CSS properties in camel case
+- `fill` - same function as fillMode in CSS, defaults to 'forward'
