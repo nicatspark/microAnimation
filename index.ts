@@ -4,8 +4,6 @@ import { Properties, Property } from 'csstype'
 // INTERFACE
 // =================================================================================================
 
-type TransformEnd = Keyframe // Properties | EmptyObject
-
 interface TargetElement extends HTMLElement {
   currentAnimation?: Animation
 }
@@ -129,3 +127,14 @@ function microAnimation({
 export { microAnimation }
 
 export type { TargetElement, MicroAnimationProps }
+
+/**
+ * Workflow:
+ * pnpm changeset - create a new changeset
+ *
+ * Release sequence:
+ * pnpm run build - builds the package
+ * pnpm changeset version - bumps the version in the changeset/package json
+ * pnpm changeset publish - publishes the package to npm
+ * git push --follow-tags origin main
+ */
