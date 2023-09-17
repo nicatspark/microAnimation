@@ -4,11 +4,9 @@ import { Properties, Property } from 'csstype'
 // INTERFACE
 // =================================================================================================
 
-type EmptyObject = Record<string, never>
+type TransformEnd = Keyframe // Properties | EmptyObject
 
-type TransformEnd = Properties | EmptyObject
-
-export interface TargetElement extends HTMLElement {
+interface TargetElement extends HTMLElement {
   currentAnimation?: Animation
 }
 
@@ -29,7 +27,7 @@ interface MicroAnimationProps {
   fill?: FillMode
 
   /** Object (or array of objects if keyframe animation) with CSS properties to animate to */
-  transformEnd: TransformEnd | TransformEnd[]
+  transformEnd: Keyframe | Keyframe[]
 }
 
 // =================================================================================================
@@ -66,7 +64,7 @@ interface MicroAnimationProps {
  *    }]
  *  ...
  */
-export function microAnimation({
+function microAnimation({
   debug = false,
   duration = 300,
   easing = 'linear',
@@ -80,7 +78,7 @@ export function microAnimation({
 
   // Extract the properties to animate from the transformEnd object(s)
   const targetProperties = transformEndArr.reduce(
-    (acc, transformObj: TransformEnd) => {
+    (acc, transformObj: Keyframe) => {
       return [...acc, ...Object.keys(transformObj)] as (keyof Properties)[]
     },
     [] as (keyof Properties)[]
@@ -92,14 +90,11 @@ export function microAnimation({
     element.currentAnimation?.pause()
 
     /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
-    const computedStyle = getComputedStyle(element) as unknown as Record<
-      string,
-      string
-    >
+    const computedStyle = getComputedStyle(element) as unknown as Keyframe
     const transformStart = targetProperties.reduce(
-      (acc: Record<string, string>, key: string) => {
+      (acc: Keyframe, key: string) => {
         if (key !== 'offset') acc[key] = computedStyle[key]?.toString()!
-        return acc as TransformEnd
+        return acc
       },
       {}
     )
@@ -130,3 +125,7 @@ export function microAnimation({
     if (debug) console.log(arguments)
   }
 }
+
+export { microAnimation }
+
+export type { TargetElement, MicroAnimationProps }

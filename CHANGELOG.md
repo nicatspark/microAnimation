@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated types to TS native
+
 ## 0.0.2
 
 ### Patch Changes
