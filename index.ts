@@ -70,6 +70,16 @@ function microAnimation({
   fill = 'forwards',
   transformEnd,
 }: MicroAnimationProps) {
+  if (!element) {
+    return {
+      closeDialog: () => {
+        return
+      },
+      openDialog: () => {
+        return
+      },
+    }
+  }
   const transformEndArr = Array.isArray(transformEnd)
     ? transformEnd
     : [transformEnd]
@@ -82,10 +92,6 @@ function microAnimation({
     [] as (keyof Properties)[]
   )
   debuglog('targetProps', targetProperties)
-
-  if (!element) {
-    return
-  }
 
   return new Promise((resolve) => {
     element.currentAnimation?.pause()
