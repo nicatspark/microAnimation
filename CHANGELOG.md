@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.0.6
+
+### Patch Changes
+
+- Minor Fixes
+
 ## 0.0.5
 
 ### Patch Changes
