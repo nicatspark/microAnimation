@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.1.0
+
+### Minor Changes
+
+- d50c666: Add possibility to set a start state with the new 'transformInit' argument.
+
 ## 0.0.6
 
 ### Patch Changes
