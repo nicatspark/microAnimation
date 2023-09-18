@@ -89,12 +89,13 @@ function microAnimation({
     : [transformEnd]
 
   // Extract the properties to animate from the transformEnd object(s)
-  const targetProperties = transformEndArr.reduce(
-    (acc, transformObj: Keyframe) => {
-      return [...acc, ...Object.keys(transformObj)] as (keyof Keyframe)[]
-    },
-    [] as (keyof Keyframe)[]
-  )
+  const targetProperties = [
+    ...new Set(
+      transformEndArr.reduce((acc, transformObj: Keyframe) => {
+        return [...acc, ...Object.keys(transformObj)] as (keyof Keyframe)[]
+      }, [] as (keyof Keyframe)[])
+    ),
+  ]
   debuglog('targetProps', targetProperties)
 
   return new Promise((resolve) => {
