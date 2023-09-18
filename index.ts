@@ -91,7 +91,7 @@ function microAnimation({
     const computedStyle = getComputedStyle(element) as unknown as Keyframe
     const transformStart = targetProperties.reduce(
       (acc: Keyframe, key: string) => {
-        if (key !== 'offset') acc[key] = computedStyle[key]?.toString()!
+        if (key !== 'offset') acc[key] = computedStyle[key]?.toString()
         return acc
       },
       {}
@@ -102,7 +102,7 @@ function microAnimation({
     if (element.currentAnimation) {
       const timing = element.currentAnimation.effect?.getComputedTiming()
       const activeDuration = parseInt(String(timing?.activeDuration))
-      const activeProgress = timing?.progress!
+      const activeProgress = timing?.progress ?? 0
       duration -= activeDuration - activeProgress * activeDuration
     }
 
@@ -119,16 +119,18 @@ function microAnimation({
     element.currentAnimation.oncancel = null
   })
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function debuglog(_: unknown, ...rest: unknown[]) {
+    // eslint-disable-next-line prefer-rest-params
     if (debug) console.log(arguments)
   }
 }
 
 export { microAnimation }
 
-export type { TargetElement, MicroAnimationProps }
+export type { MicroAnimationProps, TargetElement }
 
-/**
+/*
  * Workflow:
  * pnpm changeset - create a new changeset
  *

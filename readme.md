@@ -89,7 +89,7 @@ Use `void` instead of `await` if you don't need to wait for the promise to resol
 need to execute it directly inside a useEffect in React where you can't have await. It is also
 thenable should you prefer that to await.
 
-### microAnimatio arguments
+### microAnimation arguments
 
 - `element` - a DOM element or ref element if your using React
 - `duration` - duration of the total nimation in ms
