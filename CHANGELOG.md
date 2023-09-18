@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.0.5
+
+### Patch Changes
+
+- 21af5b8: Fix for when element is not defined
+
 ## 0.0.4
 
 ### Patch Changes
