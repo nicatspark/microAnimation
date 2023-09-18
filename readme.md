@@ -96,6 +96,10 @@ Use `void` instead of `await` if you don't need to wait for the promise to resol
 
 A keframe object is an object with camel cased css properties as keys with values.
 
+### Typescript types
+
+This little helper is built in Typescript. `MicroAnimationProps`, `TargetElement` are exported. The keyframe object is a `Keyframe` type.
+
 ---
 
 Links: [NPM](https://www.npmjs.com/package/@foundit/micro-animations) | [Github Issues](https://github.com/nicatspark/microAnimation/issues)
