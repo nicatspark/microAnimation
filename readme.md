@@ -102,6 +102,6 @@ This little helper is built in Typescript. `MicroAnimationProps`, `TargetElement
 
 ---
 
-Links: [NPM](https://www.npmjs.com/package/@foundit/micro-animations) | [Github Issues](https://github.com/nicatspark/microAnimation/issues)
+Links: [NPM](https://www.npmjs.com/package/@foundit/micro-animations) | [Github Issues][https://github.com/nicatspark/microAnimation/issues](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 
 Author: [nicolas@hervy.se](mailto:nicolas@hervy.se)
