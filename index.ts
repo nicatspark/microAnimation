@@ -1,4 +1,4 @@
-import { Properties, Property } from 'csstype'
+import { Property } from 'csstype'
 
 // =================================================================================================
 // INTERFACE
@@ -9,23 +9,26 @@ interface TargetElement extends HTMLElement {
 }
 
 interface MicroAnimationProps {
-  /** Output values to console.log */
+  /** Optional - Output values to console.log */
   debug?: boolean
 
-  /** Duration in ms */
+  /** Optional - Duration in ms. Default to 300ms */
   duration?: number
 
-  /** CSS easing */
-  easing?: Property.AnimationTimingFunction
+  /** Optional - CSS easing. Default to 'linear' */
+  easing?: Property.TransitionTimingFunction
 
-  /** The element to animate */
+  /** Mandatory - The element to animate. */
   element: TargetElement
 
-  /** CSS fillmode, defaults to 'forwards' */
+  /** Optional - CSS fillmode, defaults to 'forwards'. */
   fill?: FillMode
 
-  /** Object (or array of objects if keyframe animation) with CSS properties to animate to */
+  /** Mandatory - Keyframe object (or array of keyframe objects if it consit of multiple keyframe) with CSS properties to animate to. */
   transformEnd: Keyframe | Keyframe[]
+
+  /** Optional - Keyframe object with CSS properties to start the animation from. Omit to use computed style as starting point. */
+  transformInit?: Keyframe
 }
 
 // =================================================================================================
@@ -69,6 +72,7 @@ function microAnimation({
   element: element,
   fill = 'forwards',
   transformEnd,
+  transformInit,
 }: MicroAnimationProps) {
   if (!element) {
     return {
@@ -87,9 +91,9 @@ function microAnimation({
   // Extract the properties to animate from the transformEnd object(s)
   const targetProperties = transformEndArr.reduce(
     (acc, transformObj: Keyframe) => {
-      return [...acc, ...Object.keys(transformObj)] as (keyof Properties)[]
+      return [...acc, ...Object.keys(transformObj)] as (keyof Keyframe)[]
     },
-    [] as (keyof Properties)[]
+    [] as (keyof Keyframe)[]
   )
   debuglog('targetProps', targetProperties)
 
@@ -97,14 +101,13 @@ function microAnimation({
     element.currentAnimation?.pause()
     /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
     const computedStyle = getComputedStyle(element) as unknown as Keyframe
-    const transformStart = targetProperties.reduce(
-      (acc: Keyframe, key: string) => {
+    const transformStart =
+      transformInit ??
+      targetProperties.reduce((acc: Keyframe, key: keyof Keyframe) => {
         if (key !== 'offset') acc[key] = computedStyle[key]?.toString()
         return acc
-      },
-      {}
-    )
-    debuglog(transformStart, transformEndArr)
+      }, {})
+    debuglog(transformInit, transformEndArr)
 
     // Handle pick up of properties from previously aborted animations
     if (element.currentAnimation) {
