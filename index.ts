@@ -83,10 +83,12 @@ function microAnimation({
   )
   debuglog('targetProps', targetProperties)
 
-  return new Promise((resolve) => {
-    if (!element) return
-    element.currentAnimation?.pause()
+  if (!element) {
+    return
+  }
 
+  return new Promise((resolve) => {
+    element.currentAnimation?.pause()
     /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
     const computedStyle = getComputedStyle(element) as unknown as Keyframe
     const transformStart = targetProperties.reduce(
