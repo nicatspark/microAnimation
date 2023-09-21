@@ -35,7 +35,7 @@ async function closeModal() {
 
 ### Animating with multiple keyframes
 
-The underlying Web Animation API blurs the differences between transitions and keyframe animation. So we do too :) For a keyframe animation, pass an array of keyframe objects. The offset property is optional, and defaults to 0. In the example below, the background color will change to orangered at 70% of the animation. The keyframes will equally share the duration if the middle keyframe(s) `offset` key is omitted.
+The underlying Web Animation API blurs the differences between transitions and keyframe animation. So we do too :) For a keyframe animation, pass an array of keyframe objects. The offset property is optional, defaults to splitting equally between frames. In the example below, the background color will change to orangered at 70% of the animation. The keyframes will equally share the duration if the middle keyframe(s) `offset` key is omitted.
 
 ```js
 ...

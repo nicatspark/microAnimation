@@ -49,8 +49,8 @@ interface MicroAnimationProps {
  * }
  *
  * For a keyframe animation, pass an array of transformEnd objects.
- * The offset property is optional, and defaults to 0. In the example below,
- * the background color will change to orangered at 70% of the animation.
+ * The offset property is optional, and is used to split transitions between keyframes, defaults to splitting equally between frames.
+ * In the example below, the background color will change to orangered at 70% of the animation.
  *
  * ...
  * await microAnimation({
