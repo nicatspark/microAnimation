@@ -20,8 +20,7 @@ The Web Animation API is powerfull but clunky. The microAnimation lib is all you
 
 ### Executing an animation
 
-Minimum is to pass an element and a transformEnd object containing the properties you want to animate to.
-Animation start state is then picked up from the element's computed style. There is a possibility to set an initial state by `transitionInit` argument but unless there is a special reason avoid it to avoid jankiness when the animation is canceled and restarted in quick succession.
+Minimum is to pass an element and a transformEnd object containing the properties you want to animate to. Animation start state is then picked up from the element's computed style. There is a possibility to set an initial state by `transitionInit` argument but unless there is a special reason avoid it to avoid jankiness when the animation is canceled and restarted in quick succession.
 
 ```js
 async function closeModal() {
@@ -34,12 +33,9 @@ async function closeModal() {
 }
 ```
 
-### Animating with several keyframes
+### Animating with multiple keyframes
 
-For a keyframe animation, pass an array of keyframe objects.
-The offset property is optional, and defaults to 0. In the example below,
-the background color will change to orangered at 70% of the animation.
-The keyframes will equally share the duration if the middle keyframe(s) `offset` key is omitted.
+The underlying Web Animation API blurs the differences between transitions and keyframe animation. So we do too :) For a keyframe animation, pass an array of keyframe objects. The offset property is optional, and defaults to 0. In the example below, the background color will change to orangered at 70% of the animation. The keyframes will equally share the duration if the middle keyframe(s) `offset` key is omitted.
 
 ```js
 ...
@@ -58,25 +54,23 @@ await microAnimation({
  ...
 ```
 
-### Start state
+### Micro animation with a set start state (usually not needed)
 
-microAnimation does not accept a start state, instead it takes the computed styles. In most cases this is desired to avoid jankiness. In case you need to put a start state you'd need to do something similar to:
+In general you should not use a initial state. Having a start state might cause jankiness when the animation is interupted/restarted in quick succession. Which normally is not a problem since the start state is created dynaamically from the computed style. But if you would really need a set start state you can use the `transitionInit` property.
 
 ```js
 async function openModal() {
-  // set start style state
-  Object.assign(myModalElement.style, {
-    translate: '0 10px',
-    opacity: 0,
-  })
-  // wait a js cycle to let it render
-  await new Promise((resolve) => setTimeout(resolve, 0))
+  // create and execute a micro animation with a set start style state
   // run you micro animation
   void microAnimation({
     element: myModal,
     duration: 300,
     easing: 'ease-in',
-    transformEnd: { opacity: 0 },
+    transitionInit: {
+      translate: '0 10px',
+      opacity: 0,
+    },
+    transformEnd: { translate: '0 0'; opacity: 0 },
   })
 }
 ```
