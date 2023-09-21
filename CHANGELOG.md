@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.1.2
+
+### Patch Changes
+
+- 708d557: Updated read me for start state.
+
 ## 0.1.1
 
 ### Patch Changes
