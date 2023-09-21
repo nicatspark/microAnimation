@@ -56,7 +56,7 @@ await microAnimation({
 
 ### Micro animation with a set start state (usually not needed)
 
-In general you should not use a initial state. Having a start state might cause jankiness when the animation is interupted/restarted in quick succession. Which normally is not a problem since the start state is created dynaamically from the computed style. But if you would really need a set start state you can use the `transitionInit` property.
+In general you should not use a initial state. Having a start state might cause jankiness when the animation is interupted/restarted in quick succession. Which normally is not a problem since the start state is created dynamically from the computed style. But if you would really need a set start state you can use the `transitionInit` property.
 
 ```js
 async function openModal() {
