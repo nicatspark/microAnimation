@@ -16,7 +16,14 @@
   "bugs": {
     "url": "https://github.com/nicatspark/microAnimation/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "animations",
+    "async",
+    "promise",
+    "micro animations",
+    "transitions",
+    "UX"
+  ],
   "author": "Nicolas Hervy",
   "license": "ISC",
   "devDependencies": {
