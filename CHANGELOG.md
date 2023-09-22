@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.1.3
+
+### Patch Changes
+
+- Error is thrown if element is missing
+
 ## 0.1.2
 
 ### Patch Changes
