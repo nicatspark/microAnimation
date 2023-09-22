@@ -36,8 +36,8 @@ interface MicroAnimationProps {
 // =================================================================================================
 
 /**
- * Minimum is to pass an element and a transformEnd object.
- * Transform start is picked up from the element's computed style.
+ * Minimum arguments to pass in the argument object is ´element´ and a ´transformEnd´ keyframe object.
+ * Transform start is then picked up from the element's computed style.
  *
  * async function close() {
  *   await microAnimation({
@@ -48,8 +48,9 @@ interface MicroAnimationProps {
  *   removeElement()
  * }
  *
- * For a keyframe animation, pass an array of transformEnd objects.
- * The offset property is optional, and is used to split transitions between keyframes, defaults to splitting equally between frames.
+ * For a multiple keyframe animation, pass an array of transformEnd objects. Again, the first keyframe
+ * will be picked up from the element's computed style. The offset property is optional, and is used
+ * to split transitions between keyframes, defaults to splitting equally between frames.
  * In the example below, the background color will change to orangered at 70% of the animation.
  *
  * ...
@@ -75,13 +76,12 @@ function microAnimation({
   transformInit,
 }: MicroAnimationProps) {
   if (!element) {
+    const error = () => {
+      throw new Error('No element passed to microAnimation')
+    }
     return {
-      closeDialog: () => {
-        return
-      },
-      openDialog: () => {
-        return
-      },
+      closeDialog: error,
+      openDialog: error,
     }
   }
   const transformEndArr = Array.isArray(transformEnd)
