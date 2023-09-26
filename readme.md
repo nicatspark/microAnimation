@@ -4,6 +4,8 @@ A framework agnostic light shim over the Web Animation API to swiftly create awa
 
 ## Why
 
+Javascript is an event driven language and UI is state driven. Transitions between different states in the UI are driven by events. So should the transition be defined by CSS and the UI as it is most commonly done today, or should it be done by Javascript? One way of looking at it is: what solution generates less lines of code. And if that is the case I'd say Javascript mostley wins.
+
 Often times using transitions in the CSS creates constant custom CSS code for every animation, hard to parse and prone to timing problem between CSS timing and JS. By moving the transitions from CSS to JS the result is both cleaner and less code and in perfect sync with other JS events as a result. It is obvious that micro animation belongs in JavaScript and not in CSS. Specially when there is a need to chain events.
 
 The Web Animation API is powerfull but clunky. The microAnimation lib is all you need for your micro animation one liners.
@@ -35,7 +37,7 @@ async function closeModal() {
 
 ### Animating with multiple keyframes
 
-The underlying Web Animation API blurs the differences between transitions and keyframe animation. So we do too :) For a keyframe animation, pass an array of keyframe objects. The offset property is optional, defaults to splitting equally between frames. In the example below, the background color will change to orangered at 70% of the animation. The keyframes will equally share the duration if the middle keyframe(s) `offset` key is omitted.
+The underlying Web Animation API blurs the differences between CSS transitions and keyframe animation. So we do too 🙂 For a keyframe animation, pass an array of keyframe objects. The offset property is optional, defaults to splitting equally between frames. In the example below, the background color will change to orangered at 70% of the animation. The keyframes will equally share the duration if the middle keyframe(s) `offset` key is omitted.
 
 ```js
 ...
@@ -61,6 +63,7 @@ In general you should not use a initial state. Having a start state might cause 
 ```js
 async function openModal() {
   // create and execute a micro animation with a set start state style
+  // the myModal element fades in and slides upp 10px
   // run you micro animation
   void microAnimation({
     element: myModal,
