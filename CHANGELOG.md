@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.1.4
+
+### Patch Changes
+
+- Change element type from HTMLElement to Element
+
 ## 0.1.3
 
 ### Patch Changes
