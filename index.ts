@@ -4,7 +4,7 @@ import { Property } from 'csstype'
 // INTERFACE
 // =================================================================================================
 
-interface TargetElement extends HTMLElement {
+interface TargetElement extends Element {
   currentAnimation?: Animation
 }
 
