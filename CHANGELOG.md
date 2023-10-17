@@ -1,5 +1,13 @@
 # @foundit/micro-animations
 
+## 0.1.5
+
+### Patch Changes
+
+- Added composit to options
+- Removed dependency on csstype
+- Added pseudoElement to options
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,5 +1,3 @@
-import { Property } from 'csstype'
-
 // =================================================================================================
 // INTERFACE
 // =================================================================================================
@@ -9,6 +7,9 @@ interface TargetElement extends Element {
 }
 
 interface MicroAnimationProps {
+  /** Optional -  takes 'replace', 'add' or 'accumulate'. See https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/composite for explanation. */
+  composite?: KeyframeAnimationOptions['composite']
+
   /** Optional - Output values to console.log */
   debug?: boolean
 
@@ -16,13 +17,16 @@ interface MicroAnimationProps {
   duration?: number
 
   /** Optional - CSS easing. Default to 'linear' */
-  easing?: Property.TransitionTimingFunction
+  easing?: KeyframeAnimationOptions['easing']
 
   /** Mandatory - The element to animate. */
   element: TargetElement
 
   /** Optional - CSS fillmode, defaults to 'forwards'. */
   fill?: FillMode
+
+  /** Optional - Accepts a string with your pseudo element. E.g '::after' */
+  pseudoElement?: KeyframeAnimationOptions['pseudoElement']
 
   /** Mandatory - Keyframe object (or array of keyframe objects if it consit of multiple keyframe) with CSS properties to animate to. */
   transformEnd: Keyframe | Keyframe[]
@@ -67,6 +71,7 @@ interface MicroAnimationProps {
  *  ...
  */
 function microAnimation({
+  composite,
   debug = false,
   duration = 300,
   easing = 'linear',
@@ -74,15 +79,11 @@ function microAnimation({
   fill = 'forwards',
   transformEnd,
   transformInit,
+  pseudoElement,
 }: MicroAnimationProps) {
   if (!element) {
-    const error = () => {
-      throw new Error('No element passed to microAnimation')
-    }
-    return {
-      closeDialog: error,
-      openDialog: error,
-    }
+    const err = 'No element passed to microAnimation'
+    throw new Error(err)
   }
   const transformEndArr = Array.isArray(transformEnd)
     ? transformEnd
@@ -122,9 +123,11 @@ function microAnimation({
     element.currentAnimation = element.animate(
       [transformStart, ...transformEndArr],
       {
+        composite: composite,
         duration: duration,
-        easing: easing as string | undefined,
+        easing: easing,
         fill: fill,
+        pseudoElement: pseudoElement,
       }
     )
     element.currentAnimation.onfinish = resolve
