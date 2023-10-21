@@ -86,6 +86,8 @@ Use `void` instead of `await` if you don't need to wait for the promise to resol
 - `easing` - any of the easings available in CSS, i.e 'ease-in', 'linear', etc
 - <span style="font-weight:bold">`element`</span><span style="color:red;font-weight:bold">\*</span> - a DOM element or ref element if your using React
 - `fill` - same function as fillMode in CSS, defaults to 'forward'
+- `pseudoElement` - Accepts a string with your pseudo element. E.g '::after'
+- `composite` - takes 'replace', 'add' or 'accumulate'. [See mdn](https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/)composite for explanation.
 - <span style="font-weight:bold">`transformEnd`</span><span style="color:red;font-weight:bold">\*</span> - a keyframe object or array of keyframe objects containg animatable CSS properties in camel case with its corresponding values
 - `transformInit` - Keyframe object with CSS properties to start the animation from. Recommended to omit to use computed style as starting point.
 
