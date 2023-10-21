@@ -1,5 +1,15 @@
 # @foundit/micro-animations
 
+## 0.2.0
+
+### Minor Changes
+
+- Now possible to animate more than one element with the same animation
+
+### Patch Changes
+
+- 00ed455: Updated read me with additional optional arguments.
+
 ## 0.1.5
 
 ### Patch Changes

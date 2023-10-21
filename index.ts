@@ -20,7 +20,7 @@ interface MicroAnimationProps {
   easing?: KeyframeAnimationOptions['easing']
 
   /** Mandatory - The element to animate. */
-  element: TargetElement
+  element: TargetElement | TargetElement[]
 
   /** Optional - CSS fillmode, defaults to 'forwards'. */
   fill?: FillMode
@@ -81,7 +81,10 @@ function microAnimation({
   transformInit,
   pseudoElement,
 }: MicroAnimationProps) {
-  if (!element) {
+  const elementArr: TargetElement[] = Array.isArray(element)
+    ? element
+    : [element]
+  if (elementArr.filter(Boolean).length === 0) {
     const err = 'No element passed to microAnimation'
     throw new Error(err)
   }
@@ -99,40 +102,43 @@ function microAnimation({
   ]
   debuglog('targetProps', targetProperties)
 
-  return new Promise((resolve) => {
-    element.currentAnimation?.pause()
-    /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
-    const computedStyle = getComputedStyle(element) as unknown as Keyframe
-    const transformStart =
-      transformInit ??
-      targetProperties.reduce((acc: Keyframe, key: keyof Keyframe) => {
-        if (key !== 'offset') acc[key] = computedStyle[key]?.toString()
-        return acc
-      }, {})
-    debuglog(transformInit, transformEndArr)
+  const tasks: Promise<AnimationPlaybackEvent>[] = []
 
-    // Handle pick up of properties from previously aborted animations
-    if (element.currentAnimation) {
-      const timing = element.currentAnimation.effect?.getComputedTiming()
-      const activeDuration = parseInt(String(timing?.activeDuration))
-      const activeProgress = timing?.progress ?? 0
-      duration -= activeDuration - activeProgress * activeDuration
-    }
+  elementArr.forEach((el) => {
+    const task = new Promise<AnimationPlaybackEvent>((resolve) => {
+      el.currentAnimation?.pause()
+      /* Typescript believes getComputedStyle returns an array ¯\_(ツ)_/¯, workaround */
+      const computedStyle = getComputedStyle(el) as unknown as Keyframe
+      const transformStart =
+        transformInit ??
+        targetProperties.reduce((acc: Keyframe, key: keyof Keyframe) => {
+          if (key !== 'offset') acc[key] = computedStyle[key]?.toString()
+          return acc
+        }, {})
+      debuglog(transformInit, transformEndArr)
 
-    element.currentAnimation?.cancel()
-    element.currentAnimation = element.animate(
-      [transformStart, ...transformEndArr],
-      {
+      // Handle pick up of properties from previously aborted animations
+      if (el.currentAnimation) {
+        const timing = el.currentAnimation.effect?.getComputedTiming()
+        const activeDuration = parseInt(String(timing?.activeDuration))
+        const activeProgress = timing?.progress ?? 0
+        duration -= activeDuration - activeProgress * activeDuration
+      }
+
+      el.currentAnimation?.cancel()
+      el.currentAnimation = el.animate([transformStart, ...transformEndArr], {
         composite: composite,
         duration: duration,
         easing: easing,
         fill: fill,
         pseudoElement: pseudoElement,
-      }
-    )
-    element.currentAnimation.onfinish = resolve
-    element.currentAnimation.oncancel = null
+      })
+      el.currentAnimation.onfinish = resolve
+      el.currentAnimation.oncancel = null
+    })
+    tasks.push(task)
   })
+  return Promise.allSettled(tasks)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function debuglog(_: unknown, ...rest: unknown[]) {

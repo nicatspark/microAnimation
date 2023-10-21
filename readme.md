@@ -8,7 +8,7 @@ Javascript is an event driven language and UI is state driven. Transitions betwe
 
 Often times using transitions in the CSS creates constant custom CSS code for every animation, hard to parse and prone to timing problem between CSS timing and JS. By moving the transitions from CSS to JS the result is both cleaner and less code and in perfect sync with other JS events as a result. It is obvious that micro animation belongs in JavaScript and not in CSS. Specially when there is a need to chain events.
 
-The Web Animation API is powerfull but clunky. The microAnimation lib is all you need for your micro animation one liners.
+The Web Animation API is powerfull but clunky. The microAnimation helper is all you need for your micro animation one liners.
 
 ## Install
 
@@ -84,7 +84,7 @@ Use `void` instead of `await` if you don't need to wait for the promise to resol
 
 - `duration` - duration of the total nimation in ms
 - `easing` - any of the easings available in CSS, i.e 'ease-in', 'linear', etc
-- <span style="font-weight:bold">`element`</span><span style="color:red;font-weight:bold">\*</span> - a DOM element or ref element if your using React
+- <span style="font-weight:bold">`element`</span><span style="color:red;font-weight:bold">\*</span> - a DOM element or ref element if your using React. Can also be more than one, then passed in a array.
 - `fill` - same function as fillMode in CSS, defaults to 'forward'
 - `pseudoElement` - Accepts a string with your pseudo element. E.g '::after'
 - `composite` - takes 'replace', 'add' or 'accumulate'. [See mdn](https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/)composite for explanation.
