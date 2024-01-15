@@ -1,5 +1,11 @@
 # @foundit/micro-animations
 
+## 0.2.1
+
+### Patch Changes
+
+- Reexport toLinear and easing from easings.net
+
 ## 0.2.0
 
 ### Minor Changes
