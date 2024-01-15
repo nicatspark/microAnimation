@@ -1,3 +1,9 @@
+import {
+  toLinear,
+  easingFactory,
+  EasingFactoryProduct,
+} from '@foundit/motion-blur'
+
 // =================================================================================================
 // INTERFACE
 // =================================================================================================
@@ -17,7 +23,10 @@ interface MicroAnimationProps {
   duration?: number
 
   /** Optional - CSS easing. Default to 'linear' */
-  easing?: KeyframeAnimationOptions['easing']
+  easing?:
+    | KeyframeAnimationOptions['easing']
+    | `linear(${string})`
+    | (string & {})
 
   /** Mandatory - The element to animate. */
   element: TargetElement | TargetElement[]
@@ -69,6 +78,15 @@ interface MicroAnimationProps {
  *      backgroundColor: 'blue'
  *    }]
  *  ...
+ *
+ * Using toLinear for custom easing from easing.net
+ *
+ * microAnimation({
+ *  element: el,
+ *  easing: toLinear(easingFactory().easeInOutBounce),
+ *  duration: 400,
+ *  transformEnd: {translate: '0 200px'},
+ * })
  */
 function microAnimation({
   composite,
@@ -147,6 +165,6 @@ function microAnimation({
   }
 }
 
-export { microAnimation }
+export { microAnimation, toLinear, easingFactory }
 
-export type { MicroAnimationProps, TargetElement }
+export type { MicroAnimationProps, TargetElement, EasingFactoryProduct }

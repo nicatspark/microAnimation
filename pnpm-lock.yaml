@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+dependencies:
+  '@foundit/motion-blur':
+    specifier: ^0.0.5
+    version: 0.0.5
+
 devDependencies:
   '@changesets/cli':
     specifier: ^2.26.2
@@ -423,6 +428,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@foundit/motion-blur@0.0.5:
+    resolution: {integrity: sha512-Ut7mJV0QxG7qBFBM6ehzw8gNpaspb/6QtdiKZfeFZPW5ZKb1XmBFTR/1KpRPMeRL6YnYdW4Er/3egG6h4DGpMg==}
+    dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
